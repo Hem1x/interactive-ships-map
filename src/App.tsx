@@ -3,20 +3,20 @@ import InteractiveMap from './components/Map';
 import axios from 'axios';
 
 const App = () => {
-  const [data, setData] = useState(null);
+  // const [data, setData] = useState(null);
 
-  useEffect(() => {
-    (async function () {
-      try {
-        const response = await axios.get('http://alexbobr.ru:8000/');
-        setData(response.data);
-      } catch (error) {
-        console.log((error as Error).message);
-      }
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async function () {
+  //     try {
+  //       const response = await axios.get('http://alexbobr.ru:8000/');
+  //       setData(response.data);
+  //     } catch (error) {
+  //       console.log((error as Error).message);
+  //     }
+  //   })();
+  // }, []);
 
-  console.log(data);
+  // console.log(data);
 
   return (
     <div style={{ width: '100%', height: '100vh' }}>

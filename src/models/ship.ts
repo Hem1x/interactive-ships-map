@@ -16,6 +16,7 @@ export interface IShip {
   route: {
     from: RouteLocation;
     to: RouteLocation;
+    history: [number, number][];
   };
   size: {
     length: number;
