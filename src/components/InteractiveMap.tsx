@@ -14,7 +14,6 @@ const InteractiveMap: React.FC = () => {
       try {
         const response = await axios.get('http://alexbobr.ru:8000/test_json');
         setData([...data, response.data]);
-        console.log(response);
       } catch (error) {
         console.log((error as Error).message);
       }
@@ -35,17 +34,34 @@ const InteractiveMap: React.FC = () => {
             <Ship key={el.id} obj={el} setSelectedShip={setSelectedShip} />
           ))}
           {selectedShip && (
-            <GeoObject
-              geometry={{
-                type: 'LineString',
-                coordinates: selectedShip.route.history,
-              }}
-              options={{
-                geodesic: true,
-                strokeWidth: 5,
-                strokeColor: '#F008',
-              }}
-            />
+            <>
+              <GeoObject
+                geometry={{
+                  type: 'Point',
+                  coordinates: [
+                    selectedShip.route.from.coordinates.N,
+                    selectedShip.route.from.coordinates.E,
+                  ],
+                }}
+                options={{
+                  iconLayout: 'default#image',
+                  iconImageHref: '/img/port.svg',
+                  iconImageSize: [selectedShip.size.width, selectedShip.size.length],
+                  iconOffset: [2, -25],
+                }}
+              />
+              <GeoObject
+                geometry={{
+                  type: 'LineString',
+                  coordinates: selectedShip.route.history,
+                }}
+                options={{
+                  geodesic: true,
+                  strokeWidth: 5,
+                  strokeColor: '#F008',
+                }}
+              />
+            </>
           )}
           <ZoomControl />
           <RulerControl />
