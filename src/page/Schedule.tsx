@@ -7,18 +7,6 @@ interface ScheduleProps {
   data: IShip[];
 }
 
-const marginTable = '&nbsp;&nbsp;&nbsp;';
-
-document.querySelector(
-  '#root > div > div.flex-1 > div > div > div._3eULf > div:nth-child(1) > div._3_ygE > div > div:nth-child(1)',
-)!.innerHTML = marginTable + 'Наименование';
-document.querySelector(
-  '#root > div > div.flex-1 > div > div > div._3eULf > div:nth-child(1) > div._3_ygE > div > div:nth-child(3)',
-)!.innerHTML = marginTable + 'Отплытие';
-document.querySelector(
-  '#root > div > div.flex-1 > div > div > div._3eULf > div:nth-child(1) > div._3_ygE > div > div:nth-child(5)',
-)!.innerHTML = marginTable + 'Прибытие';
-
 const Schedule: React.FC<ScheduleProps> = ({ data }) => {
   let tasks: Task[] = data.map((el: IShip) => ({
     start: new Date(el.route.from.time),
