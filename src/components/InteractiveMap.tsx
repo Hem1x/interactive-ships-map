@@ -1,16 +1,25 @@
 import React, { useState } from 'react';
 import { YMaps, Map, ZoomControl, RulerControl, GeoObject } from '@pbe/react-yandex-maps';
-import { data } from '../data';
 import Ship from './Ship';
 import { Drawer } from '@mui/material';
 import { IShip } from '../models/ship';
+import axios from 'axios';
 
 const InteractiveMap: React.FC = () => {
   const [selectedShip, setSelectedShip] = useState<IShip | null>(null);
+  const [data, setData] = useState<IShip[]>([]);
 
   React.useEffect(() => {
-    console.log(selectedShip);
-  }, [selectedShip]);
+    (async function () {
+      try {
+        const response = await axios.get('http://alexbobr.ru:8000/test_json');
+        setData([...data, response.data]);
+        console.log(response);
+      } catch (error) {
+        console.log((error as Error).message);
+      }
+    })();
+  }, []);
 
   return (
     <>
@@ -22,7 +31,7 @@ const InteractiveMap: React.FC = () => {
             center: [16.91071, 37.5738],
             zoom: 3,
           }}>
-          {data.map((el) => (
+          {data.map((el: IShip) => (
             <Ship key={el.id} obj={el} setSelectedShip={setSelectedShip} />
           ))}
           {selectedShip && (

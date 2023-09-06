@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import InteractiveMap from './components/Map';
+import InteractiveMap from './components/InteractiveMap';
 import axios from 'axios';
 
 const App = () => {
