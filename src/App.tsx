@@ -2,8 +2,10 @@ import InteractiveMap from './components/InteractiveMap';
 
 const App = () => {
   return (
-    <div style={{ width: '100%', height: '100vh' }}>
-      <InteractiveMap />
+    <div>
+      <div style={{ width: 800 }}>
+        <InteractiveMap height="500px" />
+      </div>
     </div>
   );
 };

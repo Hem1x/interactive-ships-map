@@ -5,7 +5,11 @@ import { IShip } from '../models/ship';
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const InteractiveMap: React.FC = () => {
+interface InteractiveMapProps {
+  height: string;
+}
+
+const InteractiveMap: React.FC<InteractiveMapProps> = ({ height }) => {
   const [selectedShip, setSelectedShip] = useState<IShip | null>(null);
   const [data, setData] = useState<IShip[]>([]);
 
@@ -21,11 +25,11 @@ const InteractiveMap: React.FC = () => {
   }, []);
 
   return (
-    <>
+    <div style={{ position: 'relative' }}>
       <YMaps>
         <Map
-          width="100vw"
-          height="100vh"
+          width="100%"
+          height={height}
           defaultState={{
             center: [16.91071, 37.5738],
             zoom: 3,
@@ -86,7 +90,7 @@ const InteractiveMap: React.FC = () => {
             }}>
             <div
               style={{
-                width: '200px',
+                width: 'auto',
                 height: '100vh',
                 backgroundColor: '#fff',
               }}>
@@ -103,7 +107,7 @@ const InteractiveMap: React.FC = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </div>
   );
 };
 
