@@ -7,7 +7,7 @@ interface RouteLocation {
   city: string;
   port: string;
   coordinates: Coordinate;
-  time: string;
+  time: number;
 }
 
 export interface IShip {

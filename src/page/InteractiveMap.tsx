@@ -1,23 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { IShip } from '../models/ship';
-import axios from 'axios';
 import MapAPI from '../components/MapAPI';
 import Drawer from '../components/Drawer';
 
-const InteractiveMap: React.FC = () => {
-  const [selectedShip, setSelectedShip] = useState<IShip | null>(null);
-  const [data, setData] = useState<IShip[]>([]);
+interface InteractiveMapProps {
+  data: IShip[];
+}
 
-  useEffect(() => {
-    (async function () {
-      try {
-        const response = await axios.get('http://alexbobr.ru:8000/test_json');
-        setData([...data, response.data]);
-      } catch (error) {
-        console.log((error as Error).message);
-      }
-    })();
-  }, []);
+const InteractiveMap: React.FC<InteractiveMapProps> = ({ data }) => {
+  const [selectedShip, setSelectedShip] = useState<IShip | null>(null);
 
   return (
     <div style={{ position: 'relative', width: '100%' }}>
