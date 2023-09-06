@@ -1,5 +1,4 @@
 import { GeoObject } from '@pbe/react-yandex-maps';
-import Drawer from '@mui/material/Drawer';
 import React, { useState } from 'react';
 import { IShip } from '../models/ship';
 
