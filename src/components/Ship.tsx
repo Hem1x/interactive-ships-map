@@ -1,6 +1,7 @@
 import { GeoObject } from '@pbe/react-yandex-maps';
 import React, { useState } from 'react';
 import { IShip } from '../models/ship';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface ShipProps {
   obj: IShip;
@@ -12,21 +13,28 @@ const Ship: React.FC<ShipProps> = ({ obj, setSelectedShip }) => {
 
   return (
     <>
-      {isHovered && (
-        <div
-          style={{
-            position: 'absolute',
-            bottom: 20,
-            right: 'calc(50vw - 100px)',
-            zIndex: 2000,
-            color: 'white',
-            fontWeight: 500,
-            padding: '10px 20px',
-            backgroundColor: '#043189',
-          }}>
-          Судно: {obj.name}
-        </div>
-      )}
+      <AnimatePresence>
+        {isHovered && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}>
+            <div
+              style={{
+                position: 'absolute',
+                bottom: 20,
+                right: 'calc(50vw - 100px)',
+                zIndex: 2000,
+                color: 'white',
+                fontWeight: 500,
+                padding: '10px 20px',
+                backgroundColor: '#043189',
+              }}>
+              Судно: {obj.name}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <GeoObject
         key={obj.id}

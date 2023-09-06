@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { YMaps, Map, ZoomControl, RulerControl, GeoObject } from '@pbe/react-yandex-maps';
 import Ship from './Ship';
-import { Drawer } from '@mui/material';
 import { IShip } from '../models/ship';
 import axios from 'axios';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const InteractiveMap: React.FC = () => {
   const [selectedShip, setSelectedShip] = useState<IShip | null>(null);
   const [data, setData] = useState<IShip[]>([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     (async function () {
       try {
         const response = await axios.get('http://alexbobr.ru:8000/test_json');
@@ -68,24 +68,41 @@ const InteractiveMap: React.FC = () => {
         </Map>
       </YMaps>
 
-      {selectedShip && (
-        <Drawer
-          anchor="right"
-          open={!!selectedShip}
-          onClose={() => setSelectedShip(null)}
-          hideBackdrop={true}
-          ModalProps={{ container: document.getElementById('root') }}>
-          <p>Name: {selectedShip.name}</p>
-          <p>
-            Coordinates: {selectedShip.coordinates.N}° {selectedShip.coordinates.E}°
-          </p>
-          <p>
-            <span>direction: {selectedShip.directionDegree}°</span>
-          </p>
-          <p>Speed: {selectedShip.speed} kn</p>{' '}
-          <button onClick={() => setSelectedShip(null)}>Close</button>
-        </Drawer>
-      )}
+      <AnimatePresence>
+        {selectedShip && (
+          <motion.div
+            initial={{ x: '100%' }} // начальное положение (с правой стороны)
+            exit={{ x: '100%' }} // положение при закрытии (с правой стороны)
+            animate={{ x: 0 }} // конечное положение (видимое на экране)
+            transition={{
+              type: 'spring',
+              stiffness: 400,
+              damping: 40,
+            }}
+            style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+            }}>
+            <div
+              style={{
+                width: '200px',
+                height: '100vh',
+                backgroundColor: '#fff',
+              }}>
+              <p>Name: {selectedShip.name}</p>
+              <p>
+                Coordinates: {selectedShip.coordinates.N}° {selectedShip.coordinates.E}°
+              </p>
+              <p>
+                <span>direction: {selectedShip.directionDegree}°</span>
+              </p>
+              <p>Speed: {selectedShip.speed} kn</p>{' '}
+              <button onClick={() => setSelectedShip(null)}>Close</button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };
