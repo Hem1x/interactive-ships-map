@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { YMaps, Map, ZoomControl, RulerControl, GeoObject } from '@pbe/react-yandex-maps';
 import Ship from './Ship';
 import { IShip } from '../models/ship';
+import { isDisabled } from '@testing-library/user-event/dist/utils';
 
 interface MapProps {
   data: IShip[];
@@ -10,19 +11,12 @@ interface MapProps {
 }
 
 const MapAPI: React.FC<MapProps> = ({ selectedShip, setSelectedShip, data }) => {
-  const handleMapBoundsChange = (event: any) => {
-    const newZoom = event.get('newZoom');
-    if (newZoom < 5) {
-      event.originalEvent.preventDefault(); // Запрещаем уменьшение зума до 5
-    }
-  };
-
   return (
     <YMaps>
       <Map
         width="100%"
         height="100vh"
-        onBoundsChange={handleMapBoundsChange}
+        options={{ minZoom: 3 }}
         defaultState={{
           center: [16.91071, 37.5738],
           zoom: 3,

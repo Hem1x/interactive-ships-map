@@ -21,7 +21,9 @@ const Schedule: React.FC<ScheduleProps> = ({ data }) => {
 
   return (
     <div className="max-w-[1600px] mr-auto ml-auto mt-10 px-5">
-      <Gantt tasks={tasks} locale="RU-ru" viewMode={ViewMode.Day} />
+      {data.length !== 0 && (
+        <Gantt tasks={tasks} locale="RU-ru" viewMode={ViewMode.Day} />
+      )}
     </div>
   );
 };
