@@ -28,7 +28,8 @@ const Ship: React.FC<ShipProps> = ({ obj, setSelectedShip }) => {
                 color: 'white',
                 fontWeight: 500,
                 padding: '10px 20px',
-                backgroundColor: '#043189',
+                backgroundColor: '#000',
+                borderRadius: 5,
               }}>
               Судно: {obj.name}
             </div>

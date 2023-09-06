@@ -1,7 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
 import NavBar from './components/NavBar';
-import Schedule from './components/Schedule';
-import InteractiveMap from './components/InteractiveMap';
+import Schedule from './page/Schedule';
+import InteractiveMap from './page/InteractiveMap';
+import Home from './page/Home';
 
 const App = () => {
   return (
@@ -10,6 +11,7 @@ const App = () => {
 
       <div className="flex-1">
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/map" element={<InteractiveMap />} />
           <Route path="/schedule" element={<Schedule />} />
         </Routes>

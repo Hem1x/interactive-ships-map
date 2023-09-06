@@ -1,5 +1,13 @@
 import React from 'react';
-import { YMaps, Map, ZoomControl, RulerControl, GeoObject } from '@pbe/react-yandex-maps';
+import {
+  YMaps,
+  Map,
+  ZoomControl,
+  RulerControl,
+  GeoObject,
+  FullscreenControl,
+  SearchControl,
+} from '@pbe/react-yandex-maps';
 import Ship from './Ship';
 import { IShip } from '../models/ship';
 

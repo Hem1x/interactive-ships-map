@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { IShip } from '../models/ship';
 import axios from 'axios';
-import Drawer from './Drawer';
-import MapAPI from './MapAPI';
+import MapAPI from '../components/MapAPI';
+import Drawer from '../components/Drawer';
 
 const InteractiveMap: React.FC = () => {
   const [selectedShip, setSelectedShip] = useState<IShip | null>(null);
