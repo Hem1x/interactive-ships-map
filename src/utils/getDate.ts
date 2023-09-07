@@ -1,12 +1,11 @@
 export const getDate = (date: Date) => {
-  const day = getValidData(date.getDate());
-  const month = getValidData(date.getMonth());
-  const year = getValidData(date.getFullYear());
+  const day = date.getDate();
+  const month = date.toLocaleString('Ru-ru', { month: 'short' }).slice(0, -1);
 
   const hours = getValidData(date.getHours());
   const minutes = getValidData(date.getMinutes());
 
-  return `${hours}:${minutes} ${day}.${month}.${year} `;
+  return `${day} ${month}, ${hours}:${minutes}`;
 };
 
 function getValidData(data: number) {

@@ -21,6 +21,10 @@ const App = () => {
     })();
   }, []);
 
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+
   return (
     <div className="bg-sky-100 flex">
       <NavBar />
