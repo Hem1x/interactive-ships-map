@@ -13,10 +13,8 @@ const App = () => {
   useEffect(() => {
     (async function () {
       try {
-        const response = await axios.get(
-          'https://64f8dbf9824680fd218025f0.mockapi.io/ships',
-        );
-        setData(response.data);
+        const response = await axios.get('https://alexbobr.ru/test_json');
+        setData([...data, response.data]);
       } catch (error) {
         console.log((error as Error).message);
       }
