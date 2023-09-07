@@ -36,7 +36,7 @@ const Drawer: React.FC<DrawerProps> = ({ selectedShip, setSelectedShip }) => {
             <div className="mb-12">
               <div className="flex items-center gap-5 mb-5">
                 <img src={icon} alt="" />
-                <h1 className="font-semibold text-xl">Корабль</h1>
+                <h1 className="font-semibold text-xl">Корабль </h1>
               </div>
               <div>
                 <p>

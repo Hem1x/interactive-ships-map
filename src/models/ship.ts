@@ -26,4 +26,5 @@ export interface IShip {
   speed: number;
   status: string;
   coordinates: Coordinate;
+  color?: string;
 }

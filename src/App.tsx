@@ -6,6 +6,7 @@ import Home from './page/Home';
 import { useEffect, useState } from 'react';
 import { IShip } from './models/ship';
 import axios from 'axios';
+import { randomColor } from './utils/randomColor';
 
 const App = () => {
   const [data, setData] = useState<IShip[]>([]);
@@ -14,7 +15,7 @@ const App = () => {
     (async function () {
       try {
         const response = await axios.get('https://alexbobr.ru/test_json');
-        setData([...data, response.data]);
+        setData([...data, { ...response.data, color: randomColor() }]);
       } catch (error) {
         console.log((error as Error).message);
       }

@@ -16,13 +16,13 @@ const Schedule: React.FC<ScheduleProps> = ({ data }) => {
     type: 'task',
     progress: 100,
     isDisabled: true,
-    styles: { progressColor: `${randomColor()}`, progressSelectedColor: '#ff9e0d' },
+    styles: { progressColor: el.color, progressSelectedColor: '#ff9e0d' },
   }));
 
   return (
     <div className="max-w-[1600px] mr-auto ml-auto mt-10 px-5">
       {data.length !== 0 && (
-        <Gantt tasks={tasks} locale="RU-ru" viewMode={ViewMode.Day} />
+        <Gantt tasks={tasks} locale="rus" viewMode={ViewMode.Day} listCellWidth="" />
       )}
     </div>
   );
