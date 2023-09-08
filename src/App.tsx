@@ -14,8 +14,14 @@ const App = () => {
   useEffect(() => {
     (async function () {
       try {
-        const response = await axios.get('https://alexbobr.ru/test_json');
-        setData([...data, { ...response.data, color: randomColor() }]);
+        const response = await axios.get<IShip[]>(
+          'https://64f8dbf9824680fd218025f0.mockapi.io/ships',
+        );
+        const dataWithColor = response.data.map((el) => ({
+          ...el,
+          color: randomColor(),
+        }));
+        setData(dataWithColor);
       } catch (error) {
         console.log((error as Error).message);
       }

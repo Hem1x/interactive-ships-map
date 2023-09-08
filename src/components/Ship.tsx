@@ -48,7 +48,7 @@ const Ship: React.FC<ShipProps> = ({ obj, setSelectedShip }) => {
           iconLayout: 'default#image',
           iconImageHref: '/img/shipIcon.svg',
           iconImageSize: [obj.size.width, obj.size.length],
-          iconOffset: [2, -15],
+          iconOffset: [2, -16],
         }}
         onClick={() => setSelectedShip(obj)}
         onMouseEnter={() => setHovered(true)}
