@@ -24,7 +24,7 @@ const Schedule: React.FC = () => {
   }));
 
   return (
-    <div className="max-w-[1600px] mr-auto ml-auto mt-10 px-5">
+    <div className="w-[250px] sm:w-[300px] md:w-[500px] 2xl:w-[1200px] mr-auto ml-auto mt-10 px-5 overflow-auto">
       {ships.length !== 0 && (
         <Gantt tasks={tasks} locale="rus" viewMode={ViewMode.Day} listCellWidth="" />
       )}
