@@ -3,16 +3,12 @@ import { IShip } from '../models/ship';
 import MapAPI from '../components/MapAPI';
 import Drawer from '../components/Drawer';
 
-interface InteractiveMapProps {
-  data: IShip[];
-}
-
-const InteractiveMap: React.FC<InteractiveMapProps> = ({ data }) => {
+const InteractiveMap: React.FC = () => {
   const [selectedShip, setSelectedShip] = useState<IShip | null>(null);
 
   return (
     <div style={{ position: 'relative', width: '100%' }}>
-      <MapAPI data={data} selectedShip={selectedShip} setSelectedShip={setSelectedShip} />
+      <MapAPI selectedShip={selectedShip} setSelectedShip={setSelectedShip} />
       <Drawer selectedShip={selectedShip} setSelectedShip={setSelectedShip} />
     </div>
   );
