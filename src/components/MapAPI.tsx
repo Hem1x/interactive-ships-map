@@ -4,13 +4,10 @@ import Ship from './Ship';
 import { IShip } from '../models/ship';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useGetShipsQuery } from '../store/shipApi/shipApi';
+import { useAppSelector } from '../store/hooks';
 
-interface MapProps {
-  selectedShip: IShip | null;
-  setSelectedShip: (value: IShip | null) => void;
-}
-
-const MapAPI: React.FC<MapProps> = ({ selectedShip, setSelectedShip }) => {
+const MapAPI: React.FC = () => {
+  const { selectedShip } = useAppSelector((state) => state.selectedShip);
   const { data: ships } = useGetShipsQuery(null);
 
   if (!ships) {
@@ -22,13 +19,13 @@ const MapAPI: React.FC<MapProps> = ({ selectedShip, setSelectedShip }) => {
       <Map
         width="100%"
         height="100vh"
-        options={{ minZoom: 3 }}
+        options={{ minZoom: 5 }}
         defaultState={{
-          center: [16.91071, 37.5738],
-          zoom: 3,
+          center: [70.183542, 73.429568],
+          zoom: 6,
         }}>
         {ships.map((el: IShip) => (
-          <Ship key={el.id} obj={el} setSelectedShip={setSelectedShip} />
+          <Ship key={el.id} obj={el} />
         ))}
         {selectedShip && (
           <>
@@ -44,7 +41,7 @@ const MapAPI: React.FC<MapProps> = ({ selectedShip, setSelectedShip }) => {
                 iconLayout: 'default#image',
                 iconImageHref: '/img/port.svg',
                 iconImageSize: [selectedShip.size.width, selectedShip.size.length],
-                iconOffset: [2, -25],
+                iconOffset: [5, -20],
               }}
             />
             <GeoObject

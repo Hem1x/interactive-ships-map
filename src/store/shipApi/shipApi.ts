@@ -14,14 +14,16 @@ const providesTags = (result: IShip[] | undefined) =>
 export const shipsApi = createApi({
   reducerPath: 'shipsApi',
   tagTypes: ['Ships'],
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://alexbobr.ru/test_json' }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'https://64f8dbf9824680fd218025f0.mockapi.io',
+  }),
   endpoints: (builder) => ({
     getShips: builder.query<IShip[], null>({
       query: () => ({
-        url: '',
+        url: 'ships',
       }),
-      transformResponse: (response: ServerResponse<IShip>) =>
-        response.ships.map((el) => ({
+      transformResponse: (response: IShip[]) =>
+        response.map((el) => ({
           ...el,
           color: randomColor(),
         })),

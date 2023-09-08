@@ -3,13 +3,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { IShip } from '../models/ship';
 import { icon, logoCompany } from '../assets';
 import { getDate } from '../utils/getDate';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { setSelectedShip } from '../store/selectedSlip/selectedShip';
 
-interface DrawerProps {
-  selectedShip: IShip | null;
-  setSelectedShip: (value: IShip | null) => void;
-}
+const Drawer: React.FC = () => {
+  const { selectedShip } = useAppSelector((state) => state.selectedShip);
+  const dispatch = useAppDispatch();
 
-const Drawer: React.FC<DrawerProps> = ({ selectedShip, setSelectedShip }) => {
   return (
     <AnimatePresence>
       {selectedShip && (
@@ -22,11 +22,7 @@ const Drawer: React.FC<DrawerProps> = ({ selectedShip, setSelectedShip }) => {
             stiffness: 400,
             damping: 40,
           }}
-          style={{
-            position: 'absolute',
-            top: 0,
-            right: 0,
-          }}>
+          className="absolute top-0 right-0">
           <div className="w-auto h-screen py-[3rem] px-[2rem] bg-white">
             <div className="w-full flex items-center gap-1 mb-5">
               <img src={logoCompany} alt="logo" />
@@ -95,7 +91,7 @@ const Drawer: React.FC<DrawerProps> = ({ selectedShip, setSelectedShip }) => {
 
             <button
               className="w-[240px] bg-black text-white px-4 py-3 font-semibold text-sm hover:bg-blue-500 transition-all duration-150 ease-in-out rounded-xl absolute bottom-10 left-12"
-              onClick={() => setSelectedShip(null)}>
+              onClick={() => dispatch(setSelectedShip(null))}>
               Закрыть
             </button>
           </div>

@@ -1,15 +1,17 @@
 import { GeoObject } from '@pbe/react-yandex-maps';
 import React, { useState } from 'react';
-import { IShip } from '../models/ship';
+import { IShip, shipEnum } from '../models/ship';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAppDispatch } from '../store/hooks';
+import { setSelectedShip } from '../store/selectedSlip/selectedShip';
 
 interface ShipProps {
   obj: IShip;
-  setSelectedShip: (value: IShip) => void;
 }
 
-const Ship: React.FC<ShipProps> = ({ obj, setSelectedShip }) => {
+const Ship: React.FC<ShipProps> = ({ obj }) => {
   const [isHovered, setHovered] = useState(false);
+  const dispatch = useAppDispatch();
 
   return (
     <>
@@ -46,11 +48,12 @@ const Ship: React.FC<ShipProps> = ({ obj, setSelectedShip }) => {
         }}
         options={{
           iconLayout: 'default#image',
-          iconImageHref: '/img/shipIcon.svg',
-          iconImageSize: [obj.size.width, obj.size.length],
-          iconOffset: [2, -16],
+          iconImageHref:
+            obj.type === shipEnum.ship ? '/img/shipIcon.svg' : '/img/icebreaker.svg',
+          iconImageSize: [20, 20],
+          iconOffset: [0, 25],
         }}
-        onClick={() => setSelectedShip(obj)}
+        onClick={() => dispatch(setSelectedShip(obj))}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       />

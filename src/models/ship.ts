@@ -10,8 +10,14 @@ interface RouteLocation {
   time: number;
 }
 
+export enum shipEnum {
+  icebreaker = 'icebreaker',
+  ship = 'ship',
+}
+
 export interface IShip {
   id: number;
+  type: shipEnum;
   name: string;
   route: {
     from: RouteLocation;
