@@ -49,7 +49,7 @@ const Ship: React.FC<ShipProps> = ({ obj }) => {
         options={{
           iconLayout: 'default#image',
           iconImageHref:
-            obj.type === shipEnum.ship ? '/img/shipIcon.svg' : '/img/icebreaker.svg',
+            obj.type === shipEnum.ship ? '/img/ship.svg' : '/img/ledocol.svg',
           iconImageSize: [20, 20],
           iconOffset: [0, 25],
         }}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { IShip } from '../models/ship';
+import { IShip, shipEnum } from '../models/ship';
 import { icon, logoCompany } from '../assets';
 import { getDate } from '../utils/getDate';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
@@ -32,7 +32,9 @@ const Drawer: React.FC = () => {
             <div className="mb-12">
               <div className="flex items-center gap-5 mb-5">
                 <img src={icon} alt="" />
-                <h1 className="font-semibold text-xl">Корабль </h1>
+                <h1 className="font-semibold text-xl">
+                  {selectedShip.type === shipEnum.ship ? 'Корабль' : 'Ледокол'}
+                </h1>
               </div>
               <div>
                 <p>
