@@ -50,7 +50,7 @@ const Ship: React.FC<ShipProps> = ({ obj }) => {
           iconLayout: 'default#image',
           iconImageHref:
             obj.type === shipEnum.ship ? '/img/ship.svg' : '/img/ledocol.svg',
-          iconImageSize: [20, 20],
+          iconImageSize: [40, 40],
           iconOffset: [0, 25],
         }}
         onClick={() => dispatch(setSelectedShip(obj))}
