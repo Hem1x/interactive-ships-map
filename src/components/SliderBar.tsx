@@ -44,8 +44,7 @@ const SliderBar = () => {
   };
 
   return (
-    <div className="py-3 px-5">
-      <Slider max={daysInMonth} min={1} value={day} onChange={handleChange} />
+    <div className="absolute bottom-0 w-full py-3 px-5 bg-white">
       <div className="flex justify-between items-center">
         <button
           className="py-2 px-4 bg-black rounded-md text-white hover:bg-gray-800 transition-all duration-150"
@@ -62,6 +61,7 @@ const SliderBar = () => {
           Следующий месяц
         </button>
       </div>
+      <Slider max={daysInMonth} min={1} value={day} onChange={handleChange} />
     </div>
   );
 };

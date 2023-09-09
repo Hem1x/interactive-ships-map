@@ -14,13 +14,14 @@ import { useGetRequestsQuery } from '../store/api/api';
 import { useAppSelector } from '../store/hooks';
 import { getCorrectFormatDateWithTime } from '../utils/getDate';
 import { dateInSchedule } from '../utils/dateInSchedule';
+import SliderBar from './SliderBar';
 
 const MapAPI: React.FC = () => {
   const { data: ships } = useGetShipsQuery(null);
-  // const { data: requests } = useGetRequestsQuery(null);
-  // const { selectedDate } = useAppSelector((state) => state.filter);
+  const { data: requests } = useGetRequestsQuery(null);
+  const { selectedDate } = useAppSelector((state) => state.filter);
 
-  if (!ships) {
+  if (!requests || !selectedDate) {
     return (
       <div className="w-full flex justify-center mt-56">
         <CircularProgress />
@@ -28,33 +29,36 @@ const MapAPI: React.FC = () => {
     );
   }
 
-  // const mapObj = requests.filter((request) =>
-  //   dateInSchedule(
-  //     selectedDate!,
-  //     getCorrectFormatDateWithTime(request.date_begin),
-  //     getCorrectFormatDateWithTime(request.date_end),
-  //   ),
-  // );
+  const mapObj = requests.filter((request) =>
+    dateInSchedule(
+      selectedDate,
+      getCorrectFormatDateWithTime(request.date_begin),
+      getCorrectFormatDateWithTime(request.date_end),
+    ),
+  );
 
   return (
-    <YMaps>
-      <Map
-        width="100%"
-        height="100vh"
-        options={{ minZoom: 4 }}
-        defaultState={{
-          center: [70.183542, 73.429568],
-          zoom: 6,
-        }}>
-        {/* <Track /> */}
-        <Route />
-        {ships.map((el: IShip) => (
+    <>
+      <YMaps>
+        <Map
+          width="100%"
+          height="100vh"
+          options={{ minZoom: 4 }}
+          defaultState={{
+            center: [70.183542, 73.429568],
+            zoom: 6,
+          }}>
+          {/* <Track /> */}
+          <Route />
+          {/* {ships.map((el: IShip) => (
           <Ship key={el.id} obj={el} />
-        ))}
-        <ZoomControl />
-        <RulerControl />
-      </Map>
-    </YMaps>
+        ))} */}
+          <ZoomControl />
+          <RulerControl />
+        </Map>
+      </YMaps>
+      <SliderBar />
+    </>
   );
 };
 

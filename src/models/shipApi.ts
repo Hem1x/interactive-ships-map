@@ -12,4 +12,5 @@ export interface IRequest {
   point_begin: string;
   point_end: string;
   color?: string;
+  is_ledocol?: boolean;
 }

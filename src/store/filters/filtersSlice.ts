@@ -9,7 +9,7 @@ interface IFilterState {
 }
 
 const initialState: IFilterState = {
-  selectedDate: null,
+  selectedDate: new Date().toString(),
   selectedShip: null,
   selectedRequest: undefined,
 };
