@@ -1,7 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { shipTrackAPI } from '../../models/shipTrack';
 import { IRequest } from '../../models/shipApi';
-import { randomColor } from '../../utils/randomColor';
 import { ShipApiModel } from '../../models/ship';
 
 export const api = createApi({
@@ -21,12 +20,7 @@ export const api = createApi({
       query: () => ({
         url: '/requests/',
       }),
-      transformResponse: (response: IRequest[]) => {
-        return response.slice(1).map((el) => ({
-          ...el,
-          color: randomColor(),
-        }));
-      },
+      transformResponse: (response: IRequest[]) => response.slice(1),
       providesTags: ['api'],
     }),
     getShips: builder.query<ShipApiModel[], null>({

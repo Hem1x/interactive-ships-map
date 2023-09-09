@@ -2,10 +2,8 @@ import React from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Gantt, Task, ViewMode } from 'gantt-task-react';
 import 'gantt-task-react/dist/index.css';
-import { IShip } from '../models/ship';
 import { IRequest } from '../models/shipApi';
 import { getCorrectFormatDate, getCorrectFormatDateWithTime } from '../utils/getDate';
-import Drawer from '../components/Drawer';
 import { useAppDispatch } from '../store/hooks';
 import { setSelectedRequest } from '../store/filters/filtersSlice';
 import ScheduleDrawer from '../components/ScheduleDrawer';
@@ -59,7 +57,7 @@ const Schedule: React.FC = () => {
     <div className="p-10">
       <div id="ganttchart" className="w-[75vw] mt-5 overflow-auto">
         <div className="flex justify-between items-center">
-          <h1 className="font-bold text-4xl mb-5">Заявки</h1>
+          <h1 className="font-bold text-4xl mb-5">Расписание</h1>
           <button className="bg-black rounded-md py-1 px-3 text-white">
             Добавить заявку
           </button>
@@ -69,7 +67,6 @@ const Schedule: React.FC = () => {
           tasks={tasks}
           locale="rus"
           viewMode={ViewMode.Day}
-          listCellWidth=""
           onSelect={(e) => onSelectHandler(e)}
         />
       </div>

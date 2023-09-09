@@ -1,17 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { YMaps, Map, ZoomControl, RulerControl, GeoObject } from '@pbe/react-yandex-maps';
-import Ship from './Ship';
-import { IShip } from '../models/ship';
 import CircularProgress from '@mui/material/CircularProgress';
-import { useGetShipsQuery } from '../store/shipApi/shipApi';
 import Route from './Route';
-import { routeProgressOnRoute } from '../utils/routeProgress';
-import { shipTrackAPI } from '../models/shipTrack';
-import axios from 'axios';
-import Track from './Track';
+
 import { RoutePoints } from '../mock/RoutePoints';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { getCorrectFormatDateWithTime } from '../utils/getDate';
 import { dateInSchedule } from '../utils/dateInSchedule';
 import SliderBar from './SliderBar';
 import { IRequest } from '../models/shipApi';
