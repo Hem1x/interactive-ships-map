@@ -6,7 +6,7 @@ import { IRequest } from '../models/shipApi';
 import { getCorrectFormatDate, getCorrectFormatDateWithTime } from '../utils/getDate';
 import { useAppDispatch } from '../store/hooks';
 import { setSelectedRequest } from '../store/filters/filtersSlice';
-import ScheduleDrawer from '../components/ScheduleDrawer';
+import ScheduleDrawer from '../components/Drawer';
 import { useGetRequestsQuery } from '../store/api/api';
 
 const Schedule: React.FC = () => {

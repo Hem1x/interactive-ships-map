@@ -7,8 +7,8 @@ export const dateInSchedule = (
 ) => {
   if (date && startInteraval && finishInterval) {
     return (
-      new Date(date) <= getCorrectFormatDateWithTime(startInteraval) &&
-      new Date(date) >= getCorrectFormatDateWithTime(finishInterval)
+      new Date(date) >= getCorrectFormatDateWithTime(startInteraval) &&
+      new Date(date) <= getCorrectFormatDateWithTime(finishInterval)
     );
   }
   return;

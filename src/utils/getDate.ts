@@ -8,9 +8,9 @@ export const getDate = (date: Date) => {
   return `${day} ${month}, ${hours}:${minutes}`;
 };
 
-function getValidData(data: number) {
+export const getValidData = (data: number) => {
   return data < 10 ? '0' + data : data;
-}
+};
 
 export const getCorrectFormatDate = (date: string) => {
   const dateList = date.split('.');

@@ -12,7 +12,7 @@ const Route = () => {
           options={{
             geodesic: true,
             strokeWidth: 1,
-            strokeColor: '#F008',
+            strokeColor: '#000',
           }}
         />
       ))}

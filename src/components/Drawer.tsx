@@ -1,18 +1,19 @@
+import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { IShip, shipEnum } from '../models/ship';
 import { icon, ledocol, logoCompany, ship } from '../assets';
-import { getDate } from '../utils/getDate';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { setSelectedShip } from '../store/filters/filtersSlice';
+import { setSelectedRequest } from '../store/filters/filtersSlice';
+import { RoutePoints } from '../mock/RoutePoints';
+import { getCorrectFormatDateWithTime, getValidData } from '../utils/getDate';
+import { GeoObject } from '@pbe/react-yandex-maps';
 
 const Drawer: React.FC = () => {
-  const { selectedShip } = useAppSelector((state) => state.filter);
   const dispatch = useAppDispatch();
+  const { selectedRequest } = useAppSelector((state) => state.filter);
 
   return (
     <AnimatePresence>
-      {selectedShip && (
+      {selectedRequest && (
         <motion.div
           initial={{ x: '100%' }}
           exit={{ x: '100%' }}
@@ -26,40 +27,27 @@ const Drawer: React.FC = () => {
           <div className="w-auto h-screen py-[2rem] px-[2rem] bg-white  overflow-auto">
             <div className="w-full flex items-center gap-1 mb-5">
               <img src={logoCompany} alt="logo" />
-              <h1 className="text-xl font-semibold">Информация о корабле</h1>
+              <h1 className="text-xl font-semibold">Информация о заявке</h1>
             </div>
             <hr className="mb-5" />
             <div className="mb-7">
-              <div className="flex items-center gap-5 mb-5">
+              <div className="flex justify-between items-center gap-5 mb-5">
                 <img
-                  className="w-[40px]"
-                  src={selectedShip.type === shipEnum.ship ? ship : ledocol}
+                  className="w-9"
+                  src={selectedRequest.is_ledocol ? '/img/ledocol.svg' : '/img/ship.svg'}
                   alt=""
                 />
-                <h1 className="font-semibold text-xl">
-                  {selectedShip.type === shipEnum.ship ? 'Корабль' : 'Ледокол'}
-                </h1>
+                <h1 className="font-semibold text-xl">"{selectedRequest.name}"</h1>
               </div>
               <div>
+                <div>
+                  <b>IMO:</b> {selectedRequest.imo}
+                </div>
                 <p>
-                  <b>Название:</b> {selectedShip.name}
+                  <b>Ледовый класс:</b> "{selectedRequest.led_class}"
                 </p>
                 <p>
-                  <b>Размер:</b> {selectedShip.size.length} x {selectedShip.size.width}{' '}
-                  (м)
-                </p>
-                <p>
-                  <b>Курс:</b> {selectedShip.directionDegree}°
-                </p>
-                <p>
-                  <b>Скорость:</b> {selectedShip.speed} узлов
-                </p>
-                <p>
-                  <b>Статус:</b> {selectedShip.status}
-                </p>
-                <p>
-                  <b>Координаты:</b> {selectedShip.coordinates.N}°{' '}
-                  {selectedShip.coordinates.E}°
+                  <b>Скорость:</b> {selectedRequest.speed} узлов
                 </p>
               </div>
             </div>
@@ -71,34 +59,99 @@ const Drawer: React.FC = () => {
               </div>
               <div className="mb-5">
                 <p className="opacity-50">Откуда</p>
-                <p>
-                  <b>Город:</b> {selectedShip.route.from.city}
-                </p>
-                <p>
-                  <b>Порт:</b> {selectedShip.route.from.port}
-                </p>
-                <p>
-                  <b>Время отправления:</b>{' '}
-                  {getDate(new Date(selectedShip.route.from.time))}
-                </p>
+                <div>
+                  <b>Время:</b>{' '}
+                  {getCorrectFormatDateWithTime(selectedRequest.date_begin).getDate()}{' '}
+                  {getCorrectFormatDateWithTime(
+                    selectedRequest.date_begin,
+                  ).toLocaleString('RU-ru', { month: 'short' })}{' '}
+                  {getCorrectFormatDateWithTime(selectedRequest.date_begin).getFullYear()}
+                  {', '}
+                  {getValidData(
+                    getCorrectFormatDateWithTime(selectedRequest.date_begin).getHours(),
+                  ) +
+                    ':' +
+                    getValidData(
+                      getCorrectFormatDateWithTime(
+                        selectedRequest.date_begin,
+                      ).getMinutes(),
+                    )}
+                </div>
+                <div>
+                  <b>Порт:</b>{' '}
+                  {
+                    RoutePoints.find(
+                      (el) => el.id.toString() === selectedRequest.point_begin,
+                    )?.name
+                  }
+                </div>
+                <div>
+                  <b>Loc:</b>{' '}
+                  {RoutePoints.find(
+                    (el) => el.id.toString() === selectedRequest.point_begin,
+                  )?.coordinates![0].toFixed(5)}
+                  {', '}
+                  {RoutePoints.find(
+                    (el) => el.id.toString() === selectedRequest.point_begin,
+                  )?.coordinates![1].toFixed(5)}
+                </div>
               </div>
               <div>
                 <p className="opacity-50">Куда</p>
-                <p>
-                  <b>Город:</b> {selectedShip.route.to.city}
-                </p>
-                <p>
-                  <b>Порт:</b> {selectedShip.route.to.port}
-                </p>
-                <p>
-                  <b>Время прибытия:</b> {getDate(new Date(selectedShip.route.to.time))}
-                </p>
+                <div>
+                  <b>Время:</b>{' '}
+                  {getCorrectFormatDateWithTime(selectedRequest.date_end).getDate()}{' '}
+                  {getCorrectFormatDateWithTime(selectedRequest.date_end).toLocaleString(
+                    'RU-ru',
+                    { month: 'short' },
+                  )}{' '}
+                  {getCorrectFormatDateWithTime(selectedRequest.date_end).getFullYear()}
+                  {', '}
+                  {getValidData(
+                    getCorrectFormatDateWithTime(selectedRequest.date_end).getHours(),
+                  ) +
+                    ':' +
+                    getValidData(
+                      getCorrectFormatDateWithTime(selectedRequest.date_end).getMinutes(),
+                    )}
+                </div>
+                <div>
+                  <b>Порт:</b>{' '}
+                  {
+                    RoutePoints.find(
+                      (el) => el.id.toString() === selectedRequest.point_end,
+                    )?.name
+                  }
+                </div>
+                <div>
+                  <b>Loc:</b>{' '}
+                  {RoutePoints.find(
+                    (el) => el.id.toString() === selectedRequest.point_end,
+                  )?.coordinates![0].toFixed(5)}
+                  {', '}
+                  {RoutePoints.find(
+                    (el) => el.id.toString() === selectedRequest.point_end,
+                  )?.coordinates![1].toFixed(5)}
+                </div>
               </div>
+            </div>
+
+            <div className="flex flex-col items-center mb-7">
+              <h1 className="text-lg  font-bold">Маршрутное время</h1>
+              <h1 className="text-[2rem]  font-boldw">
+                ~{' '}
+                {Math.ceil(
+                  (getCorrectFormatDateWithTime(selectedRequest.date_end).getTime() -
+                    getCorrectFormatDateWithTime(selectedRequest.date_begin).getTime()) /
+                    3600000,
+                )}{' '}
+                ч
+              </h1>
             </div>
 
             <button
               className="w-full bg-black text-white px-4 py-3 font-semibold text-sm hover:bg-blue-500 transition-all duration-150 ease-in-out rounded-xl"
-              onClick={() => dispatch(setSelectedShip(null))}>
+              onClick={() => dispatch(setSelectedRequest(undefined))}>
               Закрыть
             </button>
           </div>

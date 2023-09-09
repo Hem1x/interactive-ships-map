@@ -13,7 +13,7 @@ import { setSelectedRequest } from '../store/filters/filtersSlice';
 
 const MapAPI: React.FC = () => {
   const { data: requests } = useGetRequestsQuery(null);
-  const { selectedDate } = useAppSelector((state) => state.filter);
+  const { selectedDate, selectedRequest } = useAppSelector((state) => state.filter);
   const dispatch = useAppDispatch();
 
   if (!requests || !selectedDate) {
@@ -42,25 +42,38 @@ const MapAPI: React.FC = () => {
           <Route />
           {mapObj.length !== 0 &&
             mapObj.map((obj: IRequest) => (
-              <GeoObject
-                key={obj.id}
-                style={{ display: 'none' }}
-                geometry={{
-                  type: 'Point',
-                  coordinates: RoutePoints.find((el) => el.id === Number(obj.point_begin))
-                    ?.coordinates,
-                }}
-                options={{
-                  iconLayout: 'default#image',
-                  iconImageHref: obj.is_ledocol ? '/img/ledocol.svg' : '/img/ship.svg',
-                  iconImageSize: [40, 40],
-                  iconOffset: [0, 25],
-                }}
-                onClick={() => dispatch(setSelectedRequest(obj))}
-              />
+              <div key={obj.id}>
+                <GeoObject
+                  style={{ display: 'none' }}
+                  geometry={{
+                    type: 'Point',
+                    coordinates: RoutePoints.find(
+                      (el) => el.id === Number(obj.point_begin),
+                    )?.coordinates,
+                  }}
+                  options={{
+                    iconLayout: 'default#image',
+                    iconImageHref: obj.is_ledocol ? '/img/ledocol.svg' : '/img/ship.svg',
+                    iconImageSize: [40, 40],
+                    iconOffset: [0, 25],
+                  }}
+                  onClick={() => dispatch(setSelectedRequest(obj))}
+                />
+              </div>
             ))}
           <ZoomControl />
           <RulerControl />
+          {selectedRequest && (
+            <GeoObject
+              style={{ display: 'none' }}
+              geometry={{
+                type: 'Point',
+                coordinates: RoutePoints.find(
+                  (el) => el.id === Number(selectedRequest.point_end),
+                )?.coordinates,
+              }}
+            />
+          )}
         </Map>
       </YMaps>
       <SliderBar />

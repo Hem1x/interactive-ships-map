@@ -1,7 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { shipTrackAPI } from '../../models/shipTrack';
-import { IRequest } from '../../models/shipApi';
-import { ShipApiModel } from '../../models/ship';
+import { IRequest, ITable } from '../../models/shipApi';
 
 export const api = createApi({
   reducerPath: 'api',
@@ -10,7 +8,7 @@ export const api = createApi({
     baseUrl: 'https://alexbobr.ru',
   }),
   endpoints: (builder) => ({
-    getTracks: builder.query<shipTrackAPI[], null>({
+    getTracks: builder.query<ITable[], null>({
       query: () => ({
         url: '/table/',
       }),
@@ -23,14 +21,7 @@ export const api = createApi({
       transformResponse: (response: IRequest[]) => response.slice(1),
       providesTags: ['api'],
     }),
-    getShips: builder.query<ShipApiModel[], null>({
-      query: () => ({
-        url: '/ships/',
-      }),
-      transformResponse: (response: ShipApiModel[]) => response.slice(1),
-      providesTags: ['api'],
-    }),
   }),
 });
 
-export const { useGetTracksQuery, useGetRequestsQuery, useGetShipsQuery } = api;
+export const { useGetTracksQuery, useGetRequestsQuery } = api;

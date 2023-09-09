@@ -1,6 +1,6 @@
 import React from 'react';
 import MapAPI from '../components/MapAPI';
-import ScheduleDrawer from '../components/ScheduleDrawer';
+import ScheduleDrawer from '../components/Drawer';
 
 const InteractiveMap: React.FC = () => {
   return (
