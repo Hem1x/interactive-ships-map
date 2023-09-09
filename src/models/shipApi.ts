@@ -3,6 +3,7 @@ export interface ServerResponse<T> {
 }
 
 export interface IRequest {
+  id?: number;
   name: string;
   imo: number;
   led_class: string;

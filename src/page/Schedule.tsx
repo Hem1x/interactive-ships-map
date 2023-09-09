@@ -3,13 +3,13 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { Gantt, Task, ViewMode } from 'gantt-task-react';
 import 'gantt-task-react/dist/index.css';
 import { IShip } from '../models/ship';
-import { useGetRequestsQuery, useGetShipsQuery } from '../store/api/api';
 import { IRequest } from '../models/shipApi';
 import { getCorrectFormatDate, getCorrectFormatDateWithTime } from '../utils/getDate';
 import Drawer from '../components/Drawer';
 import { useAppDispatch } from '../store/hooks';
 import { setSelectedRequest } from '../store/filters/filtersSlice';
 import ScheduleDrawer from '../components/ScheduleDrawer';
+import { useGetRequestsQuery } from '../store/api/api';
 
 const Schedule: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -25,7 +25,7 @@ const Schedule: React.FC = () => {
 
   console.log(requests);
 
-  let tasks: Task[] = requests.map((el: IRequest, index) => ({
+  let tasks: Task[] = requests.map((el: IRequest, index: number) => ({
     start: new Date(getCorrectFormatDate(el.date_begin)),
     end: new Date(getCorrectFormatDate(el.date_end)),
     name: el.name,
@@ -41,7 +41,7 @@ const Schedule: React.FC = () => {
 
   const onSelectHandler = (e: Task) => {
     try {
-      let neededRequests = requests.find((el) => {
+      let neededRequests = requests.find((el: IRequest) => {
         if (el.date_begin) {
           return (
             getCorrectFormatDateWithTime(el.date_begin).getTime() === e.start.getTime()

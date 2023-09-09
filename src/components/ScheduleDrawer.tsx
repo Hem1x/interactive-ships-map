@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
-import { icon, logoCompany } from '../assets';
+import { icon, ledocol, logoCompany } from '../assets';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { setSelectedRequest } from '../store/filters/filtersSlice';
 import { RoutePoints } from '../mock/RoutePoints';
@@ -31,6 +31,7 @@ const ScheduleDrawer: React.FC = () => {
             <hr className="mb-5" />
             <div className="mb-7">
               <div className="flex items-center gap-5 mb-5">
+                <img className="w-9" src={ledocol} alt="" />
                 <h1 className="font-semibold text-xl">"{selectedRequest.name}"</h1>
               </div>
               <div>

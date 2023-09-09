@@ -22,7 +22,7 @@ export const api = createApi({
         url: '/requests/',
       }),
       transformResponse: (response: IRequest[]) => {
-        return response.slice(1, -1).map((el) => ({
+        return response.slice(1).map((el) => ({
           ...el,
           color: randomColor(),
         }));
