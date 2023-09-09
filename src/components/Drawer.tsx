@@ -25,13 +25,13 @@ const Drawer: React.FC = () => {
           }}
           className="absolute top-0 right-0">
           <div className="w-auto h-screen py-[2rem] px-[2rem] bg-white  overflow-auto">
-            <div className="w-full flex items-center gap-1 mb-5">
-              <img src={logoCompany} alt="logo" />
-              <h1 className="text-xl font-semibold">Информация о заявке</h1>
+            <div className="w-full flex items-center gap-4 mb-5">
+              <img className="w-8" src={logoCompany} alt="logo" />
+              <h1 className="text-xl font-semibold opacity-50">Информация о заявке</h1>
             </div>
             <hr className="mb-5" />
             <div className="mb-7">
-              <div className="flex justify-between items-center gap-5 mb-5">
+              <div className="flex items-center gap-5 mb-5">
                 <img
                   className="w-9"
                   src={selectedRequest.is_ledocol ? '/img/ledocol.svg' : '/img/ship.svg'}
