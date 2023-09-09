@@ -3,5 +3,5 @@ const randomColorOneNumber = () => {
 };
 
 export const randomColor = () => {
-  return `rgb(${randomColorOneNumber()},${randomColorOneNumber()},${randomColorOneNumber()})`;
+  return `rgb(0,${randomColorOneNumber()},${randomColorOneNumber()})`;
 };

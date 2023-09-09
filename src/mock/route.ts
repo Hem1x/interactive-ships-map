@@ -201,5 +201,3 @@ export const routeLines: IRoute = {
     },
   ],
 };
-
-console.log(routeLines.features.map((el) => el.geometry.coordinates));

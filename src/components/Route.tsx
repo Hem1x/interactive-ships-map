@@ -7,9 +7,8 @@ const Route = () => {
     <div>
       {routeLines.features.map((el) => (
         <GeoObject
-          geometry={{
-            ...el.geometry,
-          }}
+          key={el.properties.id}
+          {...el}
           options={{
             geodesic: true,
             strokeWidth: 1,

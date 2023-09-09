@@ -3,31 +3,77 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { Gantt, Task, ViewMode } from 'gantt-task-react';
 import 'gantt-task-react/dist/index.css';
 import { IShip } from '../models/ship';
-import { useGetShipsQuery } from '../store/shipApi/shipApi';
+import { useGetRequestsQuery, useGetShipsQuery } from '../store/api/api';
+import { IRequest } from '../models/shipApi';
+import { getCorrectFormatDate, getCorrectFormatDateWithTime } from '../utils/getDate';
+import Drawer from '../components/Drawer';
+import { useAppDispatch } from '../store/hooks';
+import { setSelectedRequest } from '../store/filters/filtersSlice';
+import ScheduleDrawer from '../components/ScheduleDrawer';
 
 const Schedule: React.FC = () => {
-  const { data: ships } = useGetShipsQuery(null);
+  const dispatch = useAppDispatch();
+  const { data: requests } = useGetRequestsQuery(null);
 
-  if (!ships) {
-    return <CircularProgress />;
+  if (!requests) {
+    return (
+      <div className="w-full flex justify-center mt-56">
+        <CircularProgress />
+      </div>
+    );
   }
 
-  let tasks: Task[] = ships.map((el: IShip) => ({
-    start: new Date(el.route.from.time),
-    end: new Date(el.route.to.time),
+  console.log(requests);
+
+  let tasks: Task[] = requests.map((el: IRequest, index) => ({
+    start: new Date(getCorrectFormatDate(el.date_begin)),
+    end: new Date(getCorrectFormatDate(el.date_end)),
     name: el.name,
-    id: el.id.toString(),
+    id: index.toString(),
     type: 'task',
     progress: 100,
-    isDisabled: true,
-    styles: { progressColor: el.color, progressSelectedColor: '#ff9e0d' },
+    isDisabled: false,
+    styles: { progressColor: '#000', progressSelectedColor: '#ff9e0d' },
   }));
 
+  console.log(requests);
+  console.log(tasks);
+
+  const onSelectHandler = (e: Task) => {
+    try {
+      let neededRequests = requests.find((el) => {
+        if (el.date_begin) {
+          return (
+            getCorrectFormatDateWithTime(el.date_begin).getTime() === e.start.getTime()
+          );
+        }
+        return false;
+      });
+      dispatch(setSelectedRequest(neededRequests));
+    } catch (error) {
+      console.log('error');
+    }
+  };
+
   return (
-    <div className="w-[250px] sm:w-[300px] md:w-[500px] 2xl:w-[1200px] mr-auto ml-auto mt-10 px-5 overflow-auto">
-      {ships.length !== 0 && (
-        <Gantt tasks={tasks} locale="rus" viewMode={ViewMode.Day} listCellWidth="" />
-      )}
+    <div className="p-10">
+      <div id="ganttchart" className="w-[75vw] mt-5 overflow-auto">
+        <div className="flex justify-between items-center">
+          <h1 className="font-bold text-4xl mb-5">Заявки</h1>
+          <button className="bg-black rounded-md py-1 px-3 text-white">
+            Добавить заявку
+          </button>
+        </div>
+
+        <Gantt
+          tasks={tasks}
+          locale="rus"
+          viewMode={ViewMode.Day}
+          listCellWidth=""
+          onSelect={(e) => onSelectHandler(e)}
+        />
+      </div>
+      <ScheduleDrawer />
     </div>
   );
 };

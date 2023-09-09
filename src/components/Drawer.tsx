@@ -4,10 +4,10 @@ import { IShip, shipEnum } from '../models/ship';
 import { icon, ledocol, logoCompany, ship } from '../assets';
 import { getDate } from '../utils/getDate';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { setSelectedShip } from '../store/selectedSlip/selectedShip';
+import { setSelectedShip } from '../store/filters/filtersSlice';
 
 const Drawer: React.FC = () => {
-  const { selectedShip } = useAppSelector((state) => state.selectedShip);
+  const { selectedShip } = useAppSelector((state) => state.filter);
   const dispatch = useAppDispatch();
 
   return (

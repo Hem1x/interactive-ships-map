@@ -1,16 +1,18 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { shipsApi } from './shipApi/shipApi';
-import selectedReducer from './selectedSlip/selectedShip';
+import filterReducer from './filters/filtersSlice';
+import { api } from './api/api';
 
 const rootReducer = combineReducers({
   [shipsApi.reducerPath]: shipsApi.reducer,
-  selectedShip: selectedReducer,
+  [api.reducerPath]: api.reducer,
+  filter: filterReducer,
 });
 
 export const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(shipsApi.middleware),
+    getDefaultMiddleware().concat(shipsApi.middleware).concat(api.middleware),
   devTools: true,
 });
 

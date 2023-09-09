@@ -25,3 +25,7 @@ h6,
 p {
   margin: 0;
 }
+
+#ganttchart > div > div {
+  justify-content: center;
+}

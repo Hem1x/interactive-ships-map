@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { IShip, shipEnum } from '../models/ship';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAppDispatch } from '../store/hooks';
-import { setSelectedShip } from '../store/selectedSlip/selectedShip';
+import { setSelectedShip } from '../store/filters/filtersSlice';
 
 interface ShipProps {
   obj: IShip;

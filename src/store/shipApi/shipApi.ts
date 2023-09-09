@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { ServerResponse } from '../../models/shipApi';
 import { IShip } from '../../models/ship';
 import { randomColor } from '../../utils/randomColor';
+import { shipTrack } from '../../models/shipTrack';
 
 const providesTags = (result: IShip[] | undefined) =>
   result
@@ -29,6 +30,11 @@ export const shipsApi = createApi({
         })),
       providesTags: (result) => providesTags(result),
     }),
+    // getShipTrack: builder.query<shipTrack, null>({
+    //   query: () => ({
+    //     url: ''
+    //   })
+    // })
   }),
 });
 
