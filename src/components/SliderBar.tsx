@@ -8,16 +8,16 @@ const SliderBar = () => {
   const dispatch = useAppDispatch();
 
   const [day, setDay] = useState(new Date().getDate());
-  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth() + 1);
-  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+  const [currentMonth, setCurrentMonth] = useState(1);
+  const [currentYear, setCurrentYear] = useState(2021);
   const debounced = useDebounce(day, 500);
 
   const handleChange = (event: Event, newValue: number | number[]) => {
     setDay(newValue as number);
   };
 
-  const selectedDate = new Date(2023, currentMonth - 1, day, 12);
-  const daysInMonth = new Date(2023, currentMonth, 0).getDate();
+  const selectedDate = new Date(2021, currentMonth - 1, day, 12);
+  const daysInMonth = new Date(2021, currentMonth, 0).getDate();
 
   useEffect(() => {
     dispatch(setSelectedDate(selectedDate.toString()));

@@ -13,8 +13,7 @@ import {
 } from '@mui/material';
 import { IRequest } from '../models/shipApi';
 import { getValidData } from '../utils/getDate';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { DateTimeField } from '@mui/x-date-pickers/DateTimeField';
+import { usePostAddRequestMutation } from '../store/api/api';
 
 interface FormProps {
   setOpen: (value: boolean) => void;
@@ -33,6 +32,7 @@ const Form: React.FC<FormProps> = ({ setOpen }) => {
     date_end: '',
     point_end: '',
   });
+  const [addRequest] = usePostAddRequestMutation();
 
   function covertDate(date: string) {
     const correctDate = new Date(date);
@@ -68,7 +68,7 @@ const Form: React.FC<FormProps> = ({ setOpen }) => {
     }
   };
 
-  const onSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (postData.speed >= 10 && postData.speed <= 20) {
       if (
@@ -80,7 +80,7 @@ const Form: React.FC<FormProps> = ({ setOpen }) => {
             Number(postData.date_begin.split(' ')[0].split('.')[0]) >=
           4
         ) {
-          // sent data
+          await addRequest(postData).unwrap();
         }
       }
     }
@@ -186,9 +186,7 @@ const Form: React.FC<FormProps> = ({ setOpen }) => {
               onChange={(newDate) => handleDateChangeDateEnd(newDate)}
             />
           </LocalizationProvider>
-          <button
-            type="submit"
-            className="w-full py-4 bg-black text-white rounded-md  hover:bg-gray-700 transition-all duration-200">
+          <button className="w-full py-4 bg-black text-white rounded-md  hover:bg-gray-700 transition-all duration-200">
             Отправить заявку
           </button>
         </form>

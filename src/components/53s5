@@ -1,0 +1,25 @@
+requests {
+id: 7,
+imo: 9752084,
+speed: 15,
+date_end: "05.01.21 5:00",
+point_end: "4",
+is_ledocol: false,
+led_class: "arc7",
+name: "Штурман Альбанов",
+date_begin: "05.01.21 5:00",
+point_begin: "13"
+},
+
+
+tables {
+id: 2,
+id_request: 0,
+point_begin: "13",
+is_ledocol: false,
+date_begin: "01.01.21 23:30",
+ledocol: 0,
+ship: 9752084,
+date_end: "05.01.21 5:00",
+point_end: "4"
+}

@@ -36,6 +36,8 @@ const Schedule: React.FC<ScheduleProps> = ({ setOpen }) => {
     styles: { progressColor: '#000', progressSelectedColor: '#ff9e0d' },
   }));
 
+  console.log(tasks);
+
   const onSelectHandler = (e: Task) => {
     try {
       let neededRequests = requests.find((el: IRequest) => {
