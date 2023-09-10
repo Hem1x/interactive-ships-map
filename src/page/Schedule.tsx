@@ -25,8 +25,6 @@ const Schedule: React.FC<ScheduleProps> = ({ setOpen }) => {
     );
   }
 
-  console.log(requests);
-
   let tasks: Task[] = requests.map((el: IRequest, index: number) => ({
     start: new Date(getCorrectFormatDate(el.date_begin)),
     end: new Date(getCorrectFormatDate(el.date_end)),
@@ -37,9 +35,6 @@ const Schedule: React.FC<ScheduleProps> = ({ setOpen }) => {
     isDisabled: false,
     styles: { progressColor: '#000', progressSelectedColor: '#ff9e0d' },
   }));
-
-  console.log(requests);
-  console.log(tasks);
 
   const onSelectHandler = (e: Task) => {
     try {
