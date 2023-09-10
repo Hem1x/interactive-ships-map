@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Gantt, Task, ViewMode } from 'gantt-task-react';
 import 'gantt-task-react/dist/index.css';
@@ -9,7 +9,11 @@ import { setSelectedRequest } from '../store/filters/filtersSlice';
 import ScheduleDrawer from '../components/Drawer';
 import { useGetRequestsQuery } from '../store/api/api';
 
-const Schedule: React.FC = () => {
+interface ScheduleProps {
+  setOpen: (value: boolean) => void;
+}
+
+const Schedule: React.FC<ScheduleProps> = ({ setOpen }) => {
   const dispatch = useAppDispatch();
   const { data: requests } = useGetRequestsQuery(null);
 
@@ -54,24 +58,28 @@ const Schedule: React.FC = () => {
   };
 
   return (
-    <div className="p-10">
-      <div id="ganttchart" className="w-[75vw] mt-5 overflow-auto">
-        <div className="flex justify-between items-center">
-          <h1 className="font-bold text-4xl mb-5">Расписание</h1>
-          <button className="bg-black rounded-md py-1 px-3 text-white">
-            Добавить заявку
-          </button>
-        </div>
+    <>
+      <div className="p-10">
+        <div id="ganttchart" className="w-[75vw] mt-5 overflow-auto">
+          <div className="flex justify-between items-center">
+            <h1 className="font-bold text-4xl mb-5">Расписание</h1>
+            <button
+              className="bg-black rounded-md py-1 px-3 text-white"
+              onClick={() => setOpen(true)}>
+              Добавить заявку
+            </button>
+          </div>
 
-        <Gantt
-          tasks={tasks}
-          locale="rus"
-          viewMode={ViewMode.Day}
-          onSelect={(e) => onSelectHandler(e)}
-        />
+          <Gantt
+            tasks={tasks}
+            locale="rus"
+            viewMode={ViewMode.Day}
+            onSelect={(e) => onSelectHandler(e)}
+          />
+        </div>
+        <ScheduleDrawer />
       </div>
-      <ScheduleDrawer />
-    </div>
+    </>
   );
 };
 
